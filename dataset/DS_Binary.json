@@ -1,0 +1,23 @@
+{
+	"name": "DS_Binary",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_DataLakeConnection",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"salesdata": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "output"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

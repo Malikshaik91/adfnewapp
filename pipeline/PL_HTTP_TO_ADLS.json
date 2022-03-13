@@ -1,0 +1,94 @@
+{
+	"name": "PL_HTTP_TO_ADLS",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data From http to adls",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "suresh12345/AzureDataEngineering_Batch/main/ecdc_data/cases_deaths.csv"
+					},
+					{
+						"name": "Destination",
+						"value": "output/csvfolder/"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_casesdeath",
+						"type": "DatasetReference",
+						"parameters": {
+							"Baseurl": {
+								"value": "@pipeline().parameters.SourceBaseUrl",
+								"type": "Expression"
+							},
+							"Relativeurl": {
+								"value": "@pipeline().parameters.SourceRelativeUrl",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Output",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"SourceBaseUrl": {
+				"type": "string"
+			},
+			"SourceRelativeUrl": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-03-09T12:42:31Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

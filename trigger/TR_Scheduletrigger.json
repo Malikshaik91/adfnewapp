@@ -1,0 +1,33 @@
+{
+	"name": "TR_Scheduletrigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_Nestedpipeline",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"salesdata": "salesdata"
+				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "PL_BLOB_TO_ADLS",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 3,
+				"startTime": "2022-03-08T18:17:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
