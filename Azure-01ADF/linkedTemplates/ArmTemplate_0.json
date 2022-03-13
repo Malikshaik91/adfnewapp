@@ -292,6 +292,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "testing.csv",
 						"container": "input"
 					},
 					"columnDelimiter": ",",
