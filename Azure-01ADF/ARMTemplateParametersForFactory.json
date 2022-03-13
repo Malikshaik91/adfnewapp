@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "Azure-01ADF"
+		},
+		"LS_Adlsconnect_accountKey": {
+			"value": ""
+		},
+		"LS_Azureblobconnect_connectionString": {
+			"value": ""
+		},
+		"LS_Blobconnection_connectionString": {
+			"value": ""
+		},
+		"LS_DataLakeConnection_accountKey": {
+			"value": ""
+		},
+		"LS_Sqlconnection_connectionString": {
+			"value": ""
+		},
+		"DS_HTTPConnection_properties_typeProperties_url": {
+			"value": "@{linkedService().baseurl}"
+		},
+		"LS_Adlsconnect_properties_typeProperties_url": {
+			"value": "https://azuredf001adlgen2.dfs.core.windows.net"
+		},
+		"LS_DataLakeConnection_properties_typeProperties_url": {
+			"value": "https://azuredf001adlgen2.dfs.core.windows.net"
+		},
+		"TR_Eventtrigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/64109dbf-1eb6-4a9c-b4b9-08df609fe968/resourceGroups/Azuredatafactory-ADF/providers/Microsoft.Storage/storageAccounts/azuredata007"
+		},
+		"TR_Scheduletrigger_properties_PL_Nestedpipeline_parameters_salesdata": {
+			"value": "salesdata"
+		}
+	}
+}

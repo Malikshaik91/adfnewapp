@@ -1,0 +1,132 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "Azure-01ADF"
+		},
+		"LS_Adlsconnect_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_Adlsconnect'"
+		},
+		"LS_Azureblobconnect_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_Azureblobconnect'"
+		},
+		"LS_Blobconnection_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_Blobconnection'"
+		},
+		"LS_DataLakeConnection_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_DataLakeConnection'"
+		},
+		"LS_Sqlconnection_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_Sqlconnection'"
+		},
+		"DS_HTTPConnection_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().baseurl}"
+		},
+		"LS_Adlsconnect_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://azuredf001adlgen2.dfs.core.windows.net"
+		},
+		"LS_DataLakeConnection_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://azuredf001adlgen2.dfs.core.windows.net"
+		},
+		"TR_Eventtrigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/64109dbf-1eb6-4a9c-b4b9-08df609fe968/resourceGroups/Azuredatafactory-ADF/providers/Microsoft.Storage/storageAccounts/azuredata007"
+		},
+		"TR_Scheduletrigger_properties_PL_Nestedpipeline_parameters_salesdata": {
+			"type": "string",
+			"defaultValue": "salesdata"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "Azure-01ADF_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_Adlsconnect_accountKey": {
+						"value": "[parameters('LS_Adlsconnect_accountKey')]"
+					},
+					"LS_Azureblobconnect_connectionString": {
+						"value": "[parameters('LS_Azureblobconnect_connectionString')]"
+					},
+					"LS_Blobconnection_connectionString": {
+						"value": "[parameters('LS_Blobconnection_connectionString')]"
+					},
+					"LS_DataLakeConnection_accountKey": {
+						"value": "[parameters('LS_DataLakeConnection_accountKey')]"
+					},
+					"LS_Sqlconnection_connectionString": {
+						"value": "[parameters('LS_Sqlconnection_connectionString')]"
+					},
+					"DS_HTTPConnection_properties_typeProperties_url": {
+						"value": "[parameters('DS_HTTPConnection_properties_typeProperties_url')]"
+					},
+					"LS_Adlsconnect_properties_typeProperties_url": {
+						"value": "[parameters('LS_Adlsconnect_properties_typeProperties_url')]"
+					},
+					"LS_DataLakeConnection_properties_typeProperties_url": {
+						"value": "[parameters('LS_DataLakeConnection_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "Azure-01ADF_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"TR_Eventtrigger_properties_typeProperties_scope": {
+						"value": "[parameters('TR_Eventtrigger_properties_typeProperties_scope')]"
+					},
+					"TR_Scheduletrigger_properties_PL_Nestedpipeline_parameters_salesdata": {
+						"value": "[parameters('TR_Scheduletrigger_properties_PL_Nestedpipeline_parameters_salesdata')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'Azure-01ADF_ArmTemplate_0')]"
+			]
+		}
+	]
+}
