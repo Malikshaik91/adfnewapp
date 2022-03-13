@@ -21,6 +21,22 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_inputtables')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_Sqlconnection",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DS_outputdata')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1192,6 +1208,7 @@
 				"lastPublishTime": "2022-03-11T13:07:36Z"
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_inputtables')]",
 				"[concat(variables('factoryId'), '/datasets/ds_inputtables001')]",
 				"[concat(variables('factoryId'), '/datasets/DS_uotputtables')]"
 			]
